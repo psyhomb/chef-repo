@@ -1,0 +1,13 @@
+{
+  "rabbitmq": {
+    "ssl": {
+      "cert_chain_file": "<%= node['rabbitmq']['cert'] %>",
+      "private_key_file": "<%= node['rabbitmq']['key'] %>"
+    },
+    "host": "<%= node['rabbitmq']['ip'] %>",
+    "port": <%= node['rabbitmq']['port'] %>,
+    "vhost": "<%= node['rabbitmq']['vhost'] %>",
+    "user": "<%= node['rabbitmq']['user'] %>",
+    "password": "<%= node['rabbitmq']['password'] %>"
+  }
+}
