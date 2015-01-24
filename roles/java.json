@@ -1,0 +1,28 @@
+{
+  "name": "java",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "java_version": {
+       "alpha": {
+         "7u75": "460959219b534dc23e34d77abc306e180b364069b9fc2b2265d964fa2c281610"
+       },
+       "beta": {
+         "8u31": "efe015e8402064bce298160538aa1c18470b78603257784ec6cd07ddfa98e437",
+         "7u75": "460959219b534dc23e34d77abc306e180b364069b9fc2b2265d964fa2c281610"
+       },
+       "prod": {
+         "7u76": "ce8ff4fed2cd16aea432edf8e94f21ccfe29e9d4a659bbbef3551982769e0c8c",
+         "7u75": "460959219b534dc23e34d77abc306e180b364069b9fc2b2265d964fa2c281610"
+       }
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[my-java]"
+  ],
+  "env_run_lists": {
+  }
+}
