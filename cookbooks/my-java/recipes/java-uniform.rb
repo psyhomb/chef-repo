@@ -28,8 +28,8 @@ java_version.each do |version, checksum|
     code <<-EOH
     (
       tar xzf jdk-#{version}-linux-x64.tar.gz &&\
-      ln -s jdk1.#{major}.0_#{minor} latest#{major} &&\
       rm -rf jdk-#{version}-linux-x64.tar.gz &&\
+      ln -sf jdk1.#{major}.0_#{minor} latest#{major} &&\
       chown -R root. jdk1.#{major}.0_#{minor}
     )
     EOH
