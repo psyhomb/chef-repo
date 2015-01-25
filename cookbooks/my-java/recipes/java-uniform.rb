@@ -10,8 +10,8 @@ java_version = node['java_version'][node.chef_environment]
 directory "/usr/java"
 
 java_version.each do |version, checksum|
-  major = version[0]
-  minor = version[-2..-1] 
+  major = version[0...version.index("u")]
+  minor = version[version.index("u")+1..-1] 
 
   remote_file "/usr/java/jdk-#{version}-linux-x64.tar.gz" do
     source "http://download.oracle.com/otn-pub/java/jdk/#{version}-b13/jdk-#{version}-linux-x64.tar.gz"
@@ -35,8 +35,8 @@ end
 #java_version = node['java_version'][node.chef_environment]
 #
 #java_version.each do |version, checksum|
-#  major = version[0]
-#  #minor = version[-2..-1]
+#  major = version[0...version.index("u")]
+#  minor = version[version.index("u")+1..-1]
 #
 #  java_ark "jdk-#{version}-linux-x64" do
 #    url              "http://download.oracle.com/otn-pub/java/jdk/#{version}-b13/jdk-#{version}-linux-x64.tar.gz"
