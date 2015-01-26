@@ -6,26 +6,26 @@
 # Checksum is SHA256
 
 java_version = node['java_version'][node.chef_environment]
-java_path = "/usr/java"
+java_home = "/usr/java"
 
-directory "#{java_path}"
+directory "#{java_home}"
 
 java_version.each do |version, checksum|
   major = version[0...version.index("u")]
   minor = version[version.index("u")+1..-1] 
 
-  next if ::File.exists?("#{java_path}/jdk1.#{major}.0_#{minor}")
+  next if ::File.exists?("#{java_home}/jdk1.#{major}.0_#{minor}")
 
-  remote_file "#{java_path}/jdk-#{version}-linux-x64.tar.gz" do
+  remote_file "#{java_home}/jdk-#{version}-linux-x64.tar.gz" do
     source "http://download.oracle.com/otn-pub/java/jdk/#{version}-b13/jdk-#{version}-linux-x64.tar.gz"
     checksum "#{checksum}"
     headers({"Cookie" => "oraclelicense=accept"})
     #notifies :run, "bash[untar]", :immediately
-    #not_if { ::File.exists?("#{java_path}/jdk1.#{major}.0_#{minor}") }
+    #not_if { ::File.exists?("#{java_home}/jdk1.#{major}.0_#{minor}") }
   end
 
   bash 'untar' do
-    cwd "#{java_path}"
+    cwd "#{java_home}"
     code <<-EOH
     (
       tar xzf jdk-#{version}-linux-x64.tar.gz &&\
@@ -40,9 +40,9 @@ end
 
 # Vast version
 #java_version = node['java_version'][node.chef_environment]
-#java_path = "/usr/java"
+#java_home = "/usr/java"
 #
-#directory "#{java_path}"
+#directory "#{java_home}"
 #
 #java_version.each do |version, checksum|
 #  major = version[0...version.index("u")]
@@ -51,7 +51,7 @@ end
 #  java_ark "jdk-#{version}-linux-x64" do
 #    url              "http://download.oracle.com/otn-pub/java/jdk/#{version}-b13/jdk-#{version}-linux-x64.tar.gz"
 #    checksum         "#{checksum}"
-#    app_home         "#{java_path}/latest#{major}"
+#    app_home         "#{java_home}/latest#{major}"
 #    action :install
 #  end
 #end
