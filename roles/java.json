@@ -3,6 +3,8 @@
   "description": "",
   "json_class": "Chef::Role",
   "default_attributes": {
+  },
+  "override_attributes": {
     "java_version": {
        "alpha": {
          "8u31": "efe015e8402064bce298160538aa1c18470b78603257784ec6cd07ddfa98e437",
@@ -17,8 +19,6 @@
          "7u76": "ce8ff4fed2cd16aea432edf8e94f21ccfe29e9d4a659bbbef3551982769e0c8c"
        }
     }
-  },
-  "override_attributes": {
   },
   "chef_type": "role",
   "run_list": [
