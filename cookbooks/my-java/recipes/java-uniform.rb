@@ -5,12 +5,12 @@
 #
 # Checksum is SHA256
 
-java_version = node['java_version'][node.chef_environment]
+java_versions = node['java_versions'][node.chef_environment]
 java_home = "/usr/java"
 
 directory "#{java_home}"
 
-java_version.each do |version, checksum|
+java_versions.each do |version, checksum|
   major = version[0...version.index("u")]
   minor = version[version.index("u")+1..-1] 
 
@@ -39,12 +39,10 @@ java_version.each do |version, checksum|
 end
 
 # Vast version
-#java_version = node['java_version'][node.chef_environment]
+#java_versions = node['java_versions'][node.chef_environment]
 #java_home = "/usr/java"
 #
-#directory "#{java_home}"
-#
-#java_version.each do |version, checksum|
+#java_versions.each do |version, checksum|
 #  major = version[0...version.index("u")]
 #  minor = version[version.index("u")+1..-1]
 #

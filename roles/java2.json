@@ -1,0 +1,29 @@
+{
+  "name": "java2",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "java_versions": {
+       "alpha": [
+         "8u31",
+         "7u75"
+       ],
+       "beta": [
+         "8u31",
+         "7u75"
+       ],
+       "prod": [
+         "8u31",
+         "7u76"
+       ]
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[my-java]"
+  ],
+  "env_run_lists": {
+  }
+}
