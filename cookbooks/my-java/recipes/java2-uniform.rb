@@ -14,7 +14,7 @@ java_versions.each do |version, checksum|
   minor = version[version.index("u")+1..-1]
 
   java_ark "jdk-#{version}-linux-x64" do
-    url              "http://192.168.1.144:8888/java/jdk-#{version}-linux-x64.tar.gz"
+    url              "http://java.buncici.com/jdk-#{version}-linux-x64.tar.gz"
     checksum         "#{checksum}"
     app_home         "#{java_home}/latest#{major}"
     action :install
