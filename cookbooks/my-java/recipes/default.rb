@@ -17,4 +17,5 @@
 
 #include_recipe 'my-java::java8'
 #include_recipe 'my-java::java-uniform'
-include_recipe 'my-java::java2-uniform'
+#include_recipe 'my-java::java2-uniform'
+include_recipe 'my-java::java3-uniform'
