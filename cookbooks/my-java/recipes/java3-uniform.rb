@@ -17,11 +17,13 @@ checksums = {
 java_versions = node['java_versions'][node.chef_environment]
 java_home = "/usr/java"
 
-if java_versions.nil? or java_versions.empty?
-  #Chef::Log.error("java_versions is nil or empty - Chef Environment: #{node.chef_environment}")
-  #exit
-  abort "java_versions is nil or empty - Chef Environment: #{node.chef_environment}"
-end
+abort "java_versions is nil or empty - Chef Environment: #{node.chef_environment}" if java_versions.nil? or java_versions.empty?
+
+# If you don't wont to use abort function (previous line) this is the another way to do this
+#if java_versions.nil? or java_versions.empty?
+#  Chef::Log.error("java_versions is nil or empty - Chef Environment: #{node.chef_environment}")
+#  exit 1
+#end
 
 java_versions.each do |version|
   major = version[0...version.index("u")]
