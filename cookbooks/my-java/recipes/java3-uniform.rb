@@ -18,8 +18,9 @@ java_versions = node['java_versions'][node.chef_environment]
 java_home = "/usr/java"
 
 if java_versions.nil? or java_versions.empty?
-  Chef::Log.error("java_versions is nil or empty - Chef Environment: #{node.chef_environment}")
-  exit
+  #Chef::Log.error("java_versions is nil or empty - Chef Environment: #{node.chef_environment}")
+  #exit
+  abort "java_versions is nil or empty - Chef Environment: #{node.chef_environment}"
 end
 
 java_versions.each do |version|
