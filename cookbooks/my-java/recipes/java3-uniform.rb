@@ -29,12 +29,10 @@ checksums = {
 
 
 # Exit if java_versions is nil
-abort "java_versions has nil value - Chef Environment: #{env}" if java_versions.nil?
+#abort "java_versions has nil value - Chef Environment: #{env}" if java_versions.nil?
 
-# If you don't wont to use abort function (previous line) this is the another way to do this
-#if java_versions.nil?
-#  Chef::Log.error("java_versions is nil or empty - Chef Environment: #{env}")
-#end
+# Show error msg in log if java_versions is nil
+Chef::Log.error("java_versions is nil or empty - Chef Environment: #{env}") if java_versions.nil?
 
 # Run installation of all java versions defined in java_versions list
 java_versions.each do |version|
