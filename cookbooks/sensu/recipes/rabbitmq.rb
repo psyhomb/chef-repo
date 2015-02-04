@@ -22,6 +22,8 @@ group "rabbitmq"
 if node.sensu.use_ssl
   node.override.rabbitmq.ssl = true
   node.override.rabbitmq.ssl_port = node.sensu.rabbitmq.port
+  node.override.rabbitmq.ssl_verify = "verify_peer"
+  node.override.rabbitmq.ssl_fail_if_no_peer_cert = true
 
   ssl_directory = "/etc/rabbitmq/ssl"
 
@@ -44,6 +46,26 @@ if node.sensu.use_ssl
     end
     node.override.rabbitmq["ssl_#{item}"] = path
   end
+
+  directory File.join(ssl_directory, "client")
+
+  %w[
+    cert
+    key
+  ].each do |item|
+    path = File.join(ssl_directory, "client", "#{item}.pem")
+    file path do
+      content ssl["client"][item]
+      group "rabbitmq"
+      mode 0640
+    end
+  end
+end
+
+# The packaged erlang in 12.04 (and below) is vulnerable to
+# the poodle exploit which stops rabbitmq starting its SSL listener
+if node.platform == "ubuntu" && node.platform_version <= "12.04"
+  node.override.erlang.install_method = "esl"
 end
 
 include_recipe "rabbitmq"
@@ -57,23 +79,34 @@ end
 
 rabbitmq = node.sensu.rabbitmq.to_hash
 
-config = Sensu::Helpers.data_bag_item("config", true)
+sensu_config = Sensu::Helpers.data_bag_item("config", true)
 
-if config && config["rabbitmq"].is_a?(Hash)
-  rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, config["rabbitmq"])
+if sensu_config && sensu_config["rabbitmq"].is_a?(Hash)
+  rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, sensu_config["rabbitmq"])
 end
 
-rabbitmq_vhost rabbitmq["vhost"] do
-  action :add
-end
-
-rabbitmq_user rabbitmq["user"] do
-  password rabbitmq["password"]
-  action :add
-end
-
-rabbitmq_user rabbitmq["user"] do
+rabbitmq_credentials "general" do
   vhost rabbitmq["vhost"]
-  permissions ".* .* .*"
-  action :set_permissions
+  user rabbitmq["user"]
+  password rabbitmq["password"]
+  permissions rabbitmq["permissions"]
+end
+
+%w[
+  client
+  api
+  server
+].each do |service|
+  service_config = Sensu::Helpers.data_bag_item(service, true)
+
+  next unless service_config && service_config["rabbitmq"].is_a?(Hash)
+
+  service_rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, service_config["rabbitmq"])
+
+  rabbitmq_credentials service do
+    vhost service_rabbitmq["vhost"]
+    user service_rabbitmq["user"]
+    password service_rabbitmq["password"]
+    permissions service_rabbitmq["permissions"]
+  end
 end

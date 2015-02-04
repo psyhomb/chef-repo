@@ -1,3 +1,49 @@
+## 2.5.0 - 2015-01-29
+
+### Fixes
+
+Sensu directory mode attributes have been moved out of the Linux platform
+attributes, allowing Windows nodes to converge.
+
+Sensu service specific RabbitMQ credentials are now only managed if they
+have been configured.
+
+### Features
+
+The `random_password` helper has been updated to ensure a certain level of
+complexity, meeting Windows server 2012 user password requirements.
+
+API stash LWRP and silencing definitions now support Sensu API stack
+expiration (in seconds).
+
+A copy of the Sensu client certificate and key are now stored on the
+RabbitMQ node(s), intended to be used for RabbitMQ Federation. They can be
+found in `/etc/rabbitmq/ssl/client/`.
+
+## 2.4.0 - 2015-01-23
+
+### Fixes
+
+Ensure RabbitMQ verifies peer certificates.
+
+Runit runsvdir is now managed idempotently.
+
+Use esl-erlang on Ubuntu 12.04 and previous releases to address the poodle
+exploit.
+
+Updated ServerSpec tests to work with v2.
+
+### Features
+
+Chef-Vault support for encrypted data bags.
+
+Sensu configuration directory mode attribute.
+
+Sensu service config data bag item support.
+
+RabbitMQ user ACL (permissions) support, allowing Sensu clients to use a
+separate RabbitMQ user with different permissions than Sensu servers etc.
+
 ## 2.3.0 - 2014-12-18
 
 ### Fixes

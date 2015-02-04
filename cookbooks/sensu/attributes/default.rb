@@ -11,7 +11,6 @@ else
   default.sensu.group = "sensu"
   default.sensu.directory = "/etc/sensu"
   default.sensu.log_directory = "/var/log/sensu"
-  default.sensu.log_directory_mode = "0750"
 end
 
 # installation
@@ -19,9 +18,11 @@ default.sensu.version = "0.16.0-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
-default.sensu.use_embedded_ruby = true
+default.sensu.use_embedded_ruby = false
 default.sensu.init_style = "sysv"
 default.sensu.service_max_wait = 10
+default.sensu.directory_mode = "0750"
+default.sensu.log_directory_mode = "0750"
 
 default.sensu.apt_repo_url = "http://repos.sensuapp.org/apt"
 default.sensu.yum_repo_url = "http://repos.sensuapp.org"
