@@ -90,3 +90,4 @@ end
 sensu_base_config node.name
 
 include_recipe "sensu::vast-flapjack"
+include_recipe "sensu::vast-checks"
