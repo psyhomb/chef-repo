@@ -1,0 +1,17 @@
+{
+  "name": "sensu-server",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[sensu]",
+    "recipe[sensu::server_service]",
+    "recipe[sensu::api_service]"
+  ],
+  "env_run_lists": {
+  }
+}

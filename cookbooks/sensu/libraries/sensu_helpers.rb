@@ -44,7 +44,8 @@ module Sensu
         end
         if encrypted
           if Chef::DataBag.load("sensu").key? "#{item}_keys"
-            chef_vault_item("sensu", item)
+            #chef_vault_item("sensu", item)
+            ChefVault::Item.load("sensu", item)
           else
             secret = Chef::EncryptedDataBagItem.load_secret
             Chef::EncryptedDataBagItem.new(raw_hash, secret)
