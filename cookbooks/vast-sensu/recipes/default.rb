@@ -7,12 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# Install and configure sensu server
-include_recipe "vast-sensu::vault"
-include_recipe "sensu"
-include_recipe "vast-sensu::flapjack"
-include_recipe "vast-sensu::checks"
-
-# Start sensu server and api services
-include_recipe "sensu::server_service"
-include_recipe "sensu::api_service"
+# Install, configure and start sensu services
+%w[
+  vast-sensu::vault
+  sensu::default
+  vast-sensu::flapjack
+  vast-sensu::checks
+  sensu::server_service
+  sensu::api_service
+].each { |recipe| include_recipe recipe }
