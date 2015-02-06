@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# Install RabbitMQ - test
+#include_recipe 'vast-sensu::vault'
+#include_recipe 'sensu::rabbitmq'
+#include_recipe 'rabbitmq::user_management'
+
 # Install, configure and start sensu services
 %w[
   vast-sensu::vault
