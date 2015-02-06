@@ -12,8 +12,11 @@ template "#{node.sensu.directory}/conf.d/flapjack.json" do
 end 
 
 # Install flapjack handler (part of https://github.com/sensu/sensu-community-plugins/tree/master/plugins)
-directory "#{node.sensu.handlers}"
-cookbook_file "#{node.sensu.handlers}/flapjack.rb" do
+directory "#{node.sensu.handlers.directory}" do
+  recursive true
+end
+
+cookbook_file "#{node.sensu.handlers.directory}/flapjack.rb" do
   owner "root"
   group "sensu"
   mode  "0750"

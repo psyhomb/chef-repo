@@ -37,7 +37,7 @@ default.sensu.api.bind = "0.0.0.0"
 default.sensu.api.port = 4567
 
 # Vast flapjack
-default.sensu.handlers = "#{node.sensu.directory}/extensions/handlers"
+default.sensu.handlers.directory = "#{node.sensu.directory}/extensions/handlers"
 default.sensu.flapjack.host = "sensu-server1.buncici.com"
 default.sensu.flapjack.port = 6380
 default.sensu.flapjack.db = 0
