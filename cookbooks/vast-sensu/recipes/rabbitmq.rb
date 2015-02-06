@@ -1,4 +1,4 @@
-# Promote user into administrator
+# Set user tag
 rabbitmq_user "#{node.sensu.rabbitmq.user}" do
   tag "#{node.rabbitmq.tag}"
   action :set_tags
