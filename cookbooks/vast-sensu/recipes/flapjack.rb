@@ -1,6 +1,6 @@
 # Flapjack configuration for Sensu
 template "#{node.sensu.directory}/conf.d/flapjack.json" do
-  source "vast-flapjack.erb"
+  source "flapjack.erb"
   mode   "640"
   owner  "root"
   group  "sensu"

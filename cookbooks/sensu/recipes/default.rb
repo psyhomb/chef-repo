@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "sensu::vast-vault"
-
 ruby_block "sensu_service_trigger" do
   block do
     # Sensu service action trigger for LWRPs.
@@ -88,6 +86,3 @@ else
 end
 
 sensu_base_config node.name
-
-include_recipe "sensu::vast-flapjack"
-include_recipe "sensu::vast-checks"

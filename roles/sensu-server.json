@@ -8,9 +8,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[sensu]",
-    "recipe[sensu::server_service]",
-    "recipe[sensu::api_service]"
+    "recipe[vast-sensu]"
   ],
   "env_run_lists": {
   }
