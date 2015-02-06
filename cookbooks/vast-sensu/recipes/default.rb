@@ -15,6 +15,8 @@
 # Install, configure and start sensu services
 %w[
   vast-sensu::vault
+  sensu::rabbitmq
+  vast-sensu::rabbitmq
   sensu::default
   vast-sensu::flapjack
   vast-sensu::checks

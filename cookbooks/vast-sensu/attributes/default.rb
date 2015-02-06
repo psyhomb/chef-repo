@@ -5,7 +5,7 @@ default.sensu.group = "sensu"
 default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
 
-# installation
+# sensu installation
 default.sensu.version = "0.16.0-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
@@ -26,6 +26,9 @@ default.sensu.rabbitmq.port = 5671
 default.sensu.rabbitmq.vhost = "/sensu"
 default.sensu.rabbitmq.user = "sensu"
 default.sensu.rabbitmq.password = "sensu"
+
+# rabbitmq
+default.rabbitmq.tag = "administrator"
 
 # sensu redis
 default.sensu.redis.host = "sensu-server1.buncici.com"
