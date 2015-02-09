@@ -21,7 +21,7 @@ default.sensu.yum_repo_url = "http://repos.sensuapp.org"
 default.sensu.msi_repo_url = "http://repos.sensuapp.org/msi"
 
 # sensu rabbitmq
-default.sensu.rabbitmq.host = "sensu-server1.buncici.com"
+default.sensu.rabbitmq.host = "localhost"
 default.sensu.rabbitmq.port = 5671
 default.sensu.rabbitmq.vhost = "/sensu"
 default.sensu.rabbitmq.user = "sensu"
