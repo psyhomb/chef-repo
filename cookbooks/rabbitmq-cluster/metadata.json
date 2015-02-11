@@ -1,0 +1,41 @@
+{
+  "name": "rabbitmq-cluster",
+  "description": "Configures rabbitmq cluster",
+  "long_description": "This cookbook configures rabbitmq cluster by executing rabbitmqctl command.",
+  "maintainer": "Sunggun Yu",
+  "maintainer_email": "sunggun.dev@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "rabbitmq": ">= 0.0.0"
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.2.0"
+}

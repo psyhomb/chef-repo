@@ -1,0 +1,121 @@
+#
+# Cookbook Name:: vast-sensu
+# Recipe:: rabbitmq
+#
+
+group "rabbitmq"
+
+if node.sensu.use_ssl
+  node.override.rabbitmq.ssl = true
+  node.override.rabbitmq.ssl_port = node.sensu.rabbitmq.port
+  node.override.rabbitmq.ssl_verify = "verify_peer"
+  node.override.rabbitmq.ssl_fail_if_no_peer_cert = true
+
+  ssl_directory = "/etc/rabbitmq/ssl"
+
+  directory ssl_directory do
+    recursive true
+  end
+
+  ssl = Sensu::Helpers.data_bag_item("ssl")
+
+  %w[
+    cacert
+    cert
+    key
+  ].each do |item|
+    path = File.join(ssl_directory, "#{item}.pem")
+    file path do
+      content ssl["server"][item]
+      group "rabbitmq"
+      mode 0640
+    end
+    node.override.rabbitmq["ssl_#{item}"] = path
+  end
+
+  directory File.join(ssl_directory, "client")
+
+  %w[
+    cert
+    key
+  ].each do |item|
+    path = File.join(ssl_directory, "client", "#{item}.pem")
+    file path do
+      content ssl["client"][item]
+      group "rabbitmq"
+      mode 0640
+    end
+  end
+end
+
+# The packaged erlang in 12.04 (and below) is vulnerable to
+# the poodle exploit which stops rabbitmq starting its SSL listener
+if node.platform == "ubuntu" && node.platform_version <= "12.04"
+  node.override.erlang.install_method = "esl"
+end
+
+include_recipe "rabbitmq"
+
+plugins = %w( rabbitmq_management )
+service_name = node.rabbitmq.service_name
+
+plugins.each do |plugin|
+  rabbitmq_plugin plugin do
+    action :enable
+    notifies :restart, "service[#{service_name}]", :immediately
+  end
+end
+
+service "restart #{node.rabbitmq.service_name}" do
+  service_name node.rabbitmq.service_name
+  action :nothing
+  subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
+end
+
+rabbitmq = node.sensu.rabbitmq.to_hash
+
+sensu_config = Sensu::Helpers.data_bag_item("config", true)
+
+if sensu_config && sensu_config["rabbitmq"].is_a?(Hash)
+  rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, sensu_config["rabbitmq"])
+end
+
+rabbitmq_credentials "general" do
+  vhost rabbitmq["vhost"]
+  user rabbitmq["user"]
+  password rabbitmq["password"]
+  permissions rabbitmq["permissions"]
+end
+
+%w[
+  client
+  api
+  server
+].each do |service|
+  service_config = Sensu::Helpers.data_bag_item(service, true)
+
+  next unless service_config && service_config["rabbitmq"].is_a?(Hash)
+
+  service_rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, service_config["rabbitmq"])
+
+  rabbitmq_credentials service do
+    vhost service_rabbitmq["vhost"]
+    user service_rabbitmq["user"]
+    password service_rabbitmq["password"]
+    permissions service_rabbitmq["permissions"]
+  end
+end
+
+# Set user tag
+rabbitmq_user "#{node.sensu.rabbitmq.user}" do
+  tag "#{node.rabbitmq.tag}"
+  action :set_tags
+end
+
+# Delete guest user
+rabbitmq_user 'guest' do
+  action :delete
+end
+
+# Clustering
+include_recipe 'rabbitmq-cluster'
