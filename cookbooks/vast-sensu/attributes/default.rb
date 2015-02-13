@@ -54,11 +54,11 @@ default.sensu.flapjack.db = 0
 ##############
 
 ### System 'initd' | 'upstart'
-if platform_family? "rhel"
-  default.rabbitmq.job_control = 'initd'
-elsif platform_family? "debian"
-  default.rabbitmq.job_control = 'upstart'
-end
+#if platform_family? "rhel"
+#  default.rabbitmq.job_control = 'initd'
+#elsif platform_family? "debian"
+#  default.rabbitmq.job_control = 'upstart'
+#end
 
 ### Use local config file (local template)
 default.rabbitmq.config_template_cookbook = 'vast-sensu'
@@ -83,4 +83,6 @@ default['rabbitmq-cluster']['cluster_node_type'] = 'disc'
 
 ### Resources management 
 default.rabbitmq.vm_memory_high_watermark = 0.4
+default.rabbitmq.vm_memory_high_watermark_paging_ration = 0.2
+default.rabbitmq.disk_free_limit_relative = 2.0
 default.rabbitmq.max_file_descriptors = 1024

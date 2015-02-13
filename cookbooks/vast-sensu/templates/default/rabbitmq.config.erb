@@ -43,7 +43,8 @@
     {disk_free_limit, {mem_relative, <%= node['rabbitmq']['disk_free_limit_relative'] %>}},
 <% end %>
 <% if node['rabbitmq']['vm_memory_high_watermark'] -%>
-    {vm_memory_high_watermark, <%= node['rabbitmq']['vm_memory_high_watermark'] %>}
+    {vm_memory_high_watermark, <%= node['rabbitmq']['vm_memory_high_watermark'] %>},
+    {vm_memory_high_watermark_paging_ratio, <%= node['rabbitmq']['vm_memory_high_watermark_paging_ration'] %>}
 <% end %>
   ]}
 <% node['rabbitmq']['conf'].each do |key,value|  -%>
