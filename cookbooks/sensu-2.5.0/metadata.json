@@ -25,7 +25,7 @@
 
   },
   "suggestions": {
-    "chef-vault": ">= 1.2.0"
+    "chef-vault": ">= 1.1.5"
   },
   "conflicting": {
 
@@ -45,5 +45,5 @@
   "recipes": {
 
   },
-  "version": "2.6.0"
+  "version": "2.5.0"
 }

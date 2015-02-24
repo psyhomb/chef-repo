@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-data_bag_name = node.sensu.data_bag.name
-
 group "rabbitmq"
 
 if node.sensu.use_ssl
@@ -33,8 +31,7 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl_item = node.sensu.data_bag.ssl_item
-  ssl = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
+  ssl = Sensu::Helpers.data_bag_item("ssl")
 
   %w[
     cacert
@@ -82,8 +79,7 @@ end
 
 rabbitmq = node.sensu.rabbitmq.to_hash
 
-config_item = node.sensu.data_bag.config_item
-sensu_config = Sensu::Helpers.data_bag_item(config_item, true, data_bag_name)
+sensu_config = Sensu::Helpers.data_bag_item("config", true)
 
 if sensu_config && sensu_config["rabbitmq"].is_a?(Hash)
   rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, sensu_config["rabbitmq"])
@@ -101,7 +97,7 @@ end
   api
   server
 ].each do |service|
-  service_config = Sensu::Helpers.data_bag_item(service, true, data_bag_name)
+  service_config = Sensu::Helpers.data_bag_item(service, true)
 
   next unless service_config && service_config["rabbitmq"].is_a?(Hash)
 

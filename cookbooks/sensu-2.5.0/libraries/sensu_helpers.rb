@@ -2,7 +2,6 @@ require "openssl"
 
 module Sensu
   class Helpers
-    extend ChefVaultItem if Kernel.const_defined?("ChefVaultItem")
     class << self
       def select_attributes(attributes, keys)
         attributes.to_hash.reject do |key, value|
@@ -36,16 +35,16 @@ module Sensu
         end
       end
 
-      def data_bag_item(item, missing_ok=false, data_bag_name="sensu")
-        raw_hash = Chef::DataBagItem.load(data_bag_name, item)
+      def data_bag_item(item, missing_ok=false)
+        raw_hash = Chef::DataBagItem.load("sensu", item)
         encrypted = raw_hash.detect do |key, value|
           if value.is_a?(Hash)
             value.has_key?("encrypted_data")
           end
         end
         if encrypted
-          if Chef::DataBag.load(data_bag_name).key? "#{item}_keys"
-            #chef_vault_item(data_bag_name, item)
+          if Chef::DataBag.load("sensu").key? "#{item}_keys"
+            #chef_vault_item("sensu", item)
             ChefVault::Item.load("sensu", item)
           else
             secret = Chef::EncryptedDataBagItem.load_secret
