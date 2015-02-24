@@ -32,9 +32,10 @@ default.sensu.rabbitmq.user = "sensu"
 default.sensu.rabbitmq.password = "sensu"
 
 ### Redis
-#default.sensu.redis.host = "sensu-server1.buncici.com"
+#default.sensu.redis.host = "localhost"
+#default.sensu.redis.port = 6379
 default.sensu.redis.host = "192.168.1.143"
-default.sensu.redis.port = 6379
+default.sensu.redis.port = 16379
 
 ### API
 default.sensu.api.host = "localhost"
