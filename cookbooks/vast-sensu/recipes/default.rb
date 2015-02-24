@@ -20,13 +20,23 @@
 #  sensu::api_service
 #].each { |recipe| include_recipe recipe }
 
+#%w[
+#  vast-sensu::vault
+#  sensu::rabbitmq
+#  vast-sensu::rabbitmq
+#  sensu::default
+#  vast-sensu::flapjack
+#  vast-sensu::checks
+#  sensu::server_service
+#  sensu::api_service
+#  uchiwa::default
+#].each { |recipe| include_recipe recipe }
+
 %w[
   vast-sensu::vault
-  sensu::rabbitmq
   vast-sensu::rabbitmq
-  sensu::default
+  vast-sensu::sensu-server
   vast-sensu::flapjack
   vast-sensu::checks
-  sensu::server_service
-  sensu::api_service
+  vast-sensu::uchiwa
 ].each { |recipe| include_recipe recipe }

@@ -56,6 +56,31 @@ default.sensu.data_bag.enterprise_item = "enterprise"
 
 
 
+############
+## Uchiwa ##
+############
+
+# Uchiwa Settings
+default['uchiwa']['settings']['user'] = ''
+default['uchiwa']['settings']['pass'] = ''
+default['uchiwa']['settings']['refresh'] = 5
+default['uchiwa']['settings']['host'] = '0.0.0.0'
+default['uchiwa']['settings']['port'] = 3000
+
+# APIs Settings
+default['uchiwa']['api'] = [
+  {
+    'name' => 'Sensu',
+    'host' => '127.0.0.1',
+    'port' => 4567,
+    'path' => '',
+    'ssl' => false,
+    'timeout' => 5
+  }
+]
+
+
+
 ##############
 ## RabbitMQ ##
 ##############
@@ -93,4 +118,3 @@ default.rabbitmq.vm_memory_high_watermark = 0.4
 default.rabbitmq.vm_memory_high_watermark_paging_ration = 0.2
 default.rabbitmq.disk_free_limit_relative = 2.0
 default.rabbitmq.max_file_descriptors = 1024
-
