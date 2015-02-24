@@ -48,6 +48,11 @@ default.sensu.flapjack.host = "sensu-server1.buncici.com"
 default.sensu.flapjack.port = 6380
 default.sensu.flapjack.db = 0
 
+### Data bag
+default.sensu.data_bag.name = "sensu"
+default.sensu.data_bag.ssl_item = "ssl"
+default.sensu.data_bag.config_item = "config"
+default.sensu.data_bag.enterprise_item = "enterprise"
 
 
 
@@ -88,3 +93,4 @@ default.rabbitmq.vm_memory_high_watermark = 0.4
 default.rabbitmq.vm_memory_high_watermark_paging_ration = 0.2
 default.rabbitmq.disk_free_limit_relative = 2.0
 default.rabbitmq.max_file_descriptors = 1024
+
