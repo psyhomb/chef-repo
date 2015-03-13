@@ -4,7 +4,7 @@ sensu_check "check_cassandra" do
   handlers ["flapjack"]
   subscribers ["cassandra"]
   interval 60
-  additional(:notification => "Cassandra is not running", :occurrences => 3)
+  additional(:notification => "Cassandra status", :occurrences => 3)
 end
 
 # Disk check
@@ -13,7 +13,7 @@ sensu_check "check_disk" do
   handlers ["flapjack"]
   subscribers ["base"]
   interval 60
-  additional(:notification => "Disk space problem", :occurrences => 3)
+  additional(:notification => "Disk space", :occurrences => 3)
 end
 
 # SSH check
@@ -22,5 +22,5 @@ sensu_check "check_ssh" do
   handlers ["flapjack"]
   subscribers ["base"]
   interval 60
-  additional(:notification => "SSH service is not running!", :occurrences => 3)
+  additional(:notification => "SSH status!", :occurrences => 3)
 end
