@@ -1,7 +1,15 @@
 {
   "id": "nagios",
+  "supports": {
+    "rhel": {
+      "plugins_path": "/usr/lib64/nagios/plugins"
+    },
+    "debian": {
+      "plugins_path": "/usr/lib/nagios/plugins"
+    }
+  },
   "plugins": [
-        "check_tcp",
-        "check_ssh"
+    "check_tcp",
+    "check_ssh"
   ]
 }

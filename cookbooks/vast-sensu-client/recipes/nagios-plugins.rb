@@ -1,10 +1,11 @@
 ### Install nagios plugins
 platform_matched = false
 
-%w[
-  rhel
-  debian
-].each do |platform|
+plugins = data_bag_item('sensu', 'nagios')['plugins']
+platforms = data_bag_item('sensu', 'nagios')['supports'].keys
+platforms_plugins_path = data_bag_item('sensu', 'nagios')['supports']
+    
+platforms.each do |platform|
 
   if platform_family? platform
     platform_matched = true
@@ -13,15 +14,8 @@ platform_matched = false
       package package_name
     end
 
-    case platform 
-      when 'rhel'
-        plugins_path = "/usr/lib64/nagios/plugins"
-      when 'debian'
-        plugins_path = "/usr/lib/nagios/plugins"
-    end
+    plugins_path = platforms_plugins_path[platform]['plugins_path']
 
-    plugins = data_bag_item('sensu', 'nagios')['plugins']
-    
     plugins.each do |plugin_name|
       link "/etc/sensu/plugins/#{plugin_name}" do
         to "#{plugins_path}/#{plugin_name}"
