@@ -1,0 +1,15 @@
+{
+    "client": {
+        "name": "<%= node.fqdn %>",
+        "address": "<%= node.ipaddress %>",
+        "subscriptions": <%= node.roles %>,
+
+        "disk": {
+            "wspace": 80,
+            "cspace": 90,
+            "winode": 80,
+            "cinode": 90,
+            "mount": "/$,/mnt$,/data"
+        }
+    }
+}
