@@ -23,7 +23,7 @@ platform_matched = false
     plugins = data_bag_item('sensu', 'nagios')['plugins']
     
     plugins.each do |plugin_name|
-      link "#{plugins_path}/#{plugin_name}" do
+      link "/etc/sensu/plugins/#{plugin_name}" do
         to "#{plugins_path}/#{plugin_name}"
         only_if "test -f #{plugins_path}/#{plugin_name}"
       end
