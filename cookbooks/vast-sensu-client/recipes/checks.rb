@@ -2,9 +2,13 @@ ruby_block "sensu_service_trigger" do
   block do
     # Sensu service action trigger for LWRPs.
     # This resource must be defined before the Sensu LWRPs can be used.
+    supervisor_service "sensu-server" do
+      action :restart
+    end
   end
   action :nothing
 end
+
 
 # Cassandra process check
 sensu_check "check_cassandra" do
@@ -19,7 +23,7 @@ end
 # Disk check
 sensu_check "check_disk" do
   type "metric"
-  command "check_disk -w 15 -c 10 -p /"
+  command "check-disk.rb -w :::disk.wspace::: -c :::disk.cspace::: -W :::disk.winode::: -K :::disk.cinode::: -L :::disk.mount::: -d"
   handlers ["flapjack"]
   subscribers ["base"]
   interval 60
