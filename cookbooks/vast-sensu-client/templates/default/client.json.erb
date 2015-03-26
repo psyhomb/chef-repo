@@ -4,6 +4,10 @@
         "address": "<%= node.ipaddress %>",
         "subscriptions": <%= node.roles %>,
 
+        "graphite": {
+            "name": "<%= node.fqdn.gsub('.', '_') %>"
+        },
+
         "disk": {
             "wspace": 80,
             "cspace": 90,

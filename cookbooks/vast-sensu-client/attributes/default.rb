@@ -11,28 +11,30 @@ default.monitor.use_system_profile = true
 default.monitor.use_statsd_input = false
 
 default.monitor.default_handlers = ["flapjack"]
-default.monitor.metric_handlers = ["debug"]
+default.monitor.metric_handlers = ["relay"]
 
 ### Client definition (additional attributes)
 default.monitor.use_local_ipv4 = false
 default.monitor.additional_client_attributes = {
-    "disk" => {
-            "wspace" => 80,
-            "cspace" => 90,
-            "winode" => 80,
-            "cinode" => 90,
-            "mount" => "/$,/mnt$,/data"
-        }
+  "disk" => {
+    "wspace" => 80,
+    "cspace" => 90,
+    "winode" => 80,
+    "cinode" => 90,
+    "mount" => "/$,/mnt$,/data"
+  },
+  "graphite" => {
+    "name" => "#{node.fqdn.gsub('.', '_')}"
+  }
 }
 
-### Platform Linux
+### Installation
 default.sensu.admin_user = "root"
 default.sensu.user = "sensu"
 default.sensu.group = "sensu"
 default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
 
-### Installation
 default.sensu.version = "0.16.0-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
@@ -55,7 +57,5 @@ default.sensu.rabbitmq.user = "sensu"
 default.sensu.rabbitmq.password = "sensu"
 
 ### Data bag
-default.sensu.data_bag.name = "sensu"
-default.sensu.data_bag.ssl_item = "ssl"
-default.sensu.data_bag.config_item = "config"
-default.sensu.data_bag.enterprise_item = "enterprise"
+#default.sensu.data_bag.name = "sensu"
+#default.sensu.data_bag.ssl_item = "ssl"
