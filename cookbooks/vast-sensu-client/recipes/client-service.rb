@@ -1,9 +1,10 @@
-### Install Sensu client service and plugins
+### Install and configure sensu-client and plugins
 include_recipe 'vast-sensu-client::vault'
 include_recipe 'sensu::default'
 
 ip_type = node['monitor']['use_local_ipv4'] ? 'local_ipv4' : 'public_ipv4'
 client_attributes = node['monitor']['additional_client_attributes'].to_hash
+subscriptions_item = data_bag_item("sensu", "subscriptions")
 
 sensu_client node.name do
   if node.has_key?('cloud')
@@ -11,8 +12,7 @@ sensu_client node.name do
   else
     address node['ipaddress']
   end
-  subscriptions node['roles'] + ['all']
-  #subscriptions ( node['roles'] + ['all'] ) - sensu_client_bag_item['subscriptions_exceptions']
+  subscriptions node['roles'] & subscriptions_item['roles']
   additional client_attributes
 end
 

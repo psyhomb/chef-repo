@@ -1,6 +1,6 @@
 name             'vast-sensu-client'
-maintainer       'psyhomb'
-maintainer_email 'milosbuncic@gmail.com'
+maintainer       'mbuncic'
+maintainer_email 'mbuncic@vast.com'
 license          'All rights reserved'
 description      'Installs/Configures vast-sensu-client'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))

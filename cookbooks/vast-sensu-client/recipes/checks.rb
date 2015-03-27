@@ -25,7 +25,7 @@ sensu_check "check_ssh" do
   handlers ["flapjack"]
   subscribers ["base"]
   interval 60
-  additional(:notification => "SSH status!", :occurrences => 3)
+  additional(:output_type => "nagios", :notification => "SSH status!", :occurrences => 3)
 end
 
 include_recipe "vast-sensu-client::service-restart"

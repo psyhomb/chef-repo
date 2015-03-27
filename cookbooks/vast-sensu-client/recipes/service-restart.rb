@@ -1,4 +1,4 @@
-### Trigger sensu-server restart
+### Triggers sensu-server restart (sysv)
 include_recipe "vast-sensu-client::service-trigger"
 
 ### Restart sensu-server (works with two service managers sysv and supervisord)
@@ -14,7 +14,7 @@ if pid != 0
     user 'root'
     code <<-EOH
       # Modification time marker
-      MMARKER="/var/chef/run/supervisor_status.mmarker"
+      MMARKER="/var/chef/run/sensu-checks.mmarker"
 
       if [[ -e ${MMARKER} ]]; then
         MODIFIED=`find /etc/sensu/conf.d/checks -newer ${MMARKER}`

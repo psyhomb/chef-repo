@@ -4,7 +4,7 @@ platform_matched = false
 plugins = data_bag_item('sensu', 'nagios')['plugins']
 platforms = data_bag_item('sensu', 'nagios')['supports'].keys
 platforms_plugins_path = data_bag_item('sensu', 'nagios')['supports']
-    
+
 platforms.each do |platform|
 
   if platform_family? platform
