@@ -1,15 +1,3 @@
-ruby_block "sensu_service_trigger" do
-  block do
-    # Sensu service action trigger for LWRPs.
-    # This resource must be defined before the Sensu LWRPs can be used.
-    supervisor_service "sensu-server" do
-      action :restart
-    end
-  end
-  action :nothing
-end
-
-
 # Cassandra process check
 sensu_check "check_cassandra" do
   type "metric"
@@ -39,3 +27,5 @@ sensu_check "check_ssh" do
   interval 60
   additional(:notification => "SSH status!", :occurrences => 3)
 end
+
+include_recipe "vast-sensu-client::service-restart"
