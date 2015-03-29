@@ -7,7 +7,7 @@ directory '/var/chef/run' do
   group 'root'
 end
 
-pid = `ps aux | grep [s]upervisord.conf | awk '{print $2}'`.to_i
+pid = `ps aux | grep -w [/]usr/bin/supervisord | awk '{print $2}'`.to_i
 
 if pid != 0
   bash 'sensu-server-restart' do
