@@ -19,11 +19,11 @@ if pid != 0
       if [[ -e ${MMARKER} ]]; then
         MODIFIED=`find /etc/sensu/conf.d/checks -newer ${MMARKER}`
         if [[ -n ${MODIFIED} ]]; then
-          supervisorctl restart sensu-server
+          supervisorctl restart sensu-server sensu-api
           touch ${MMARKER}
         fi
       else
-        supervisorctl restart sensu-server
+        supervisorctl restart sensu-server sensu-api
         touch ${MMARKER}
       fi
       EOH

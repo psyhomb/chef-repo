@@ -1,7 +1,6 @@
 {
   "id": "subscriptions",
   "roles": [
-    "vastbase",
-    "vast-java"
+    "base"
   ]
 }
