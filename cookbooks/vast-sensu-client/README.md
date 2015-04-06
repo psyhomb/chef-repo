@@ -166,6 +166,38 @@ Just include `awsbase` in your node's `run_list`:
 }
 ```
 
+Node object is also used for overriding default.sensu.additional_client_attributes attributes primarily defined in the attributes/default.rb file
+You can override some of these attributes or all of them
+
+Example:
+
+{
+  "name": "my_sensu_client",
+  "chef_environment": "prod",
+  "normal": {
+    "sensu": {
+      "additional_client_attributes": {
+        "disk": {
+          "wspace": 81,
+          "cspace": 91,
+          "winode": 81,
+          "cinode": 91,
+          "mount": "/$,/mnt$,/data"
+        },
+        "ssh": {
+          "port": 2222
+        }
+      }
+    },
+    "tags": [
+
+    ]
+  },
+  "run_list": [
+    "role[awsbase]"
+  ]
+} 
+
 
 Updating vault:
 
