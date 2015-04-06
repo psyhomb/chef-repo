@@ -57,7 +57,7 @@ default.sensu.group = "sensu"
 default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
 
-default.sensu.version = "0.16.0-1"
+default.sensu.version = "0.17.1-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
