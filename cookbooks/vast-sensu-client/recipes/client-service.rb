@@ -2,8 +2,8 @@
 include_recipe 'vast-sensu-client::vault'
 include_recipe 'sensu::default'
 
-ip_type = node['monitor']['use_local_ipv4'] ? 'local_ipv4' : 'public_ipv4'
-client_attributes = node['monitor']['additional_client_attributes'].to_hash
+ip_type = node['sensu']['use_local_ipv4'] ? 'local_ipv4' : 'public_ipv4'
+client_attributes = node['sensu']['additional_client_attributes'].to_hash
 subscriptions_item = data_bag_item("sensu", "subscriptions")
 
 sensu_client node.name do
@@ -17,16 +17,15 @@ sensu_client node.name do
 end
 
 remote_directory '/etc/sensu/plugins' do
-  source 'plugins/default'
+  source 'plugins'
   files_mode '0755'
   files_owner 'sensu'
   files_group 'sensu'
-  #mode '0755'
   owner 'root'
   group 'sensu'
 end
 
-if node['monitor']['use_nagios_plugins']
+if node['sensu']['use_nagios_plugins']
   include_recipe 'vast-sensu-client::nagios-plugins'
 end
 

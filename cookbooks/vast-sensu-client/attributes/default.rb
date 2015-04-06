@@ -3,19 +3,41 @@
 ##################
 
 ### Plugins and client definition
-default.monitor.use_nagios_plugins = true
-default.monitor.rhel.nagios_plugin_packages = ["nagios-plugins-all"]
-default.monitor.debian.nagios_plugin_packages = ["nagios-plugins-basic"]
+# NOTE: This attribute MUST be set on every sensu server node with a value of false
+# Example:      
+#   knife node edit $sensu-server-name
+#
+#   "normal": {
+#     "sensu": {
+#       "sensu_client": false
+#     },
+#     "tags": [
+#     ]
+#   }
+default.sensu.sensu_client = true
 
-default.monitor.use_system_profile = true
-default.monitor.use_statsd_input = false
+default.sensu.use_nagios_plugins = true
+default.sensu.rhel.nagios_plugin_packages = ["nagios-plugins-all"]
+default.sensu.debian.nagios_plugin_packages = ["nagios-plugins-basic"]
 
-default.monitor.default_handlers = ["flapjack"]
-default.monitor.metric_handlers = ["relay"]
+default.sensu.default_handlers = ["flapjack"]
+default.sensu.metric_handlers = ["relay"]
 
-### Client definition (additional attributes)
-default.monitor.use_local_ipv4 = false
-default.monitor.additional_client_attributes = {
+default.sensu.use_local_ipv4 = false
+
+default.sensu.additional_client_attributes = {
+  "keepalive" => {
+      "type" => "metric",
+      "thresholds" => {
+        "warning" => 120,
+        "critical" => 180
+      },
+      "handlers" => node.sensu.default_handlers,
+      "refresh" => 60
+  },
+  "graphite" => {
+    "name" => "#{node.fqdn.gsub('.', '-')}"
+  },
   "disk" => {
     "wspace" => 80,
     "cspace" => 90,
@@ -23,8 +45,8 @@ default.monitor.additional_client_attributes = {
     "cinode" => 90,
     "mount" => "/$,/mnt$,/data"
   },
-  "graphite" => {
-    "name" => "#{node.fqdn.gsub('.', '_')}"
+  "ssh" => {
+    "port" => 22
   }
 }
 

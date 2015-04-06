@@ -10,7 +10,7 @@ platforms.each do |platform|
   if platform_family? platform
     platform_matched = true
 
-    node['monitor'][platform]['nagios_plugin_packages'].each do |package_name|
+    node['sensu'][platform]['nagios_plugin_packages'].each do |package_name|
       package package_name
     end
 
